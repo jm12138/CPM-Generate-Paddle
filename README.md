@@ -5,7 +5,15 @@
 
 原项目介绍文章：https://mp.weixin.qq.com/s/oI2Ak-M57MSuycLVpVEiHw
 
-## 快速使用
+## 项目说明
+参考[CPM-Generate](https://github.com/TsinghuaAI/CPM-Generate)、[CPM-LM-TF2](https://github.com/qhduan/CPM-LM-TF2)、[gpt-2-Pytorch](https://github.com/graykode/gpt-2-Pytorch)等项目开发
+
+感谢上述项目的开源代码和模型
+
+## 快速试用
+可以使用百度AIStudio平台简单快速的体验试用这个模型，[项目链接](https://aistudio.baidu.com/aistudio/projectdetail/1279908)
+
+## 使用说明
 * 克隆本项目代码
 ```shell
 $ git clone https://github.com/jm12138/CPM-Generate-Paddle
