@@ -23,19 +23,17 @@ $ cd CPM-Generate-Paddle
 * 准备模型文件
   * 如果你没有原版模型可以直接下载：[下载链接](http://bj.bcebos.com/v1/ai-studio-online/61492e028f1e4a5e863abbab062b4cfc428c114c8e794429a3448da9610180e4?responseContentDisposition=attachment%3B%20filename%3DCPM-LM.pdparams&authorization=bce-auth-v1%2F0ef6765c1e494918bc0d4c3ca3e5c6d1%2F2020-12-02T16%3A21%3A57Z%2F-1%2F%2Fffcd85aa00f73ab708450dd6b4d880519c7d72458a8d8e88027b4cfe5bb59377)
   * 如果已经下载了原版模型可以自己进行转换：请参考[转换代码](https://github.com/jm12138/CPM-Generate-Paddle/blob/main/convert.py)
-  * 将模型文件放置于./GPT2/pretrained_model
 
 * 安装如下依赖
 ```
 sentencepiece 
-jieba 
-regex 
-paddlepaddle==2.0.0rc0
+jieba
+paddlepaddle>=2.0.0rc0
 ```
 
 * 运行测试Demo
 ```shell
-$ python AI_Bot.py
+$ python AI_Bot.py --pretrained_model [path to the pretrained_model]
 ```
 
 ## 引用
