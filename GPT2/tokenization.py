@@ -16,11 +16,7 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-import sys
 import json
-import logging
-import os
-import regex as re
 from io import open
 import sentencepiece as spm
 import jieba
@@ -33,10 +29,7 @@ except ImportError:
     def lru_cache():
         return lambda func: func
 
-from .file_utils import cached_path
-
 class GPT2Tokenizer(object):
-
     def __init__(self, vocab_file, model_file, max_len=None):
         self.max_len = max_len if max_len is not None else int(1e12)
         self.encoder = json.load(open(vocab_file))
@@ -72,4 +65,3 @@ class GPT2Tokenizer(object):
         text = self.sp.decode(tokens)
         text = text.replace(' ', '').replace('\u2582', ' ').replace('\u2583', '\n')
         return text
-

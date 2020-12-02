@@ -21,7 +21,6 @@ class Attention(nn.Layer):
                 attention_dropout,
                 residual_dropout):
         super(Attention, self).__init__()
-        
         self.num_attention_heads = num_attention_heads
         self.size_per_head = embedding_size // num_attention_heads
         self.embedding_size = embedding_size
@@ -48,7 +47,6 @@ class Attention(nn.Layer):
             pk, pv = paddle.unstack(kv_cache, axis=1)
             k = paddle.concat([pk, k], axis=-2)
             v = paddle.concat([pv, v], axis=-2)
-
         cached_kv = paddle.stack([k, v], axis=1)
 
         attn = paddle.matmul(q, k, transpose_y=True)  # [B, N, L, S]
@@ -112,14 +110,10 @@ class Transformer(nn.Layer):
     def forward(self, x, kv_cache=None):
         cached_kvs = []
         for i, layer in enumerate(self.layers):
-            x, cached_kv = layer(
-                x, 
-                kv_cache=kv_cache[i] if kv_cache is not None else None)
+            x, cached_kv = layer(x, kv_cache=kv_cache[i] if kv_cache is not None else None)
             cached_kvs.append(cached_kv)
         x = self.final_layernorm(x)
         return x, paddle.stack(cached_kvs)
-
-
 
 class GPT2Model(nn.Layer):
     def __init__(self,
@@ -132,7 +126,6 @@ class GPT2Model(nn.Layer):
                  attention_dropout,
                  residual_dropout):
         super(GPT2Model, self).__init__()
-        
         self.word_embeddings = nn.Embedding(vocab_size, embedding_size)
         self.position_embeddings = nn.Embedding(block_size, embedding_size)
         self.emb_drop = nn.Dropout(embedding_dropout)
@@ -148,18 +141,19 @@ class GPT2Model(nn.Layer):
             past_length = 0
         else:
             past_length = kv_cache[0][0].shape[-2]
+
         position_ids = paddle.arange(past_length, x.shape[-1] + past_length, dtype='int64')
         position_ids = position_ids.unsqueeze(0).expand_as(x)
-        # print(position_ids)
+
         x = self.word_embeddings(x)
         x = self.emb_drop(x + self.position_embeddings(position_ids))
-        # print(x)
         x, cached_kvs = self.transformer(x, kv_cache)
         x = paddle.matmul(x, self.word_embeddings.weight, transpose_y=True)
+
         if use_cache:
             return x, cached_kvs
-        return x
-
+        else:
+            return x
 
 if __name__ == '__main__':
     gpt = GPT2Model(
@@ -172,7 +166,5 @@ if __name__ == '__main__':
     attention_dropout=0.0,
     residual_dropout=0.0)
     gpt.eval()
-    # for x, y in gpt.state_dict().items():
-    #     print(x, y.shape)
     out, cached_kvs = gpt(paddle.ones([1,1], 'int64'), paddle.randn([32, 1, 2, 32, 9, 80], 'float32'), use_cache=True)
-    # print(out.shape, cached_kvs.shape)
+    print(out.shape, cached_kvs.shape)
