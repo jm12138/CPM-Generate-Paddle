@@ -1,6 +1,11 @@
 import paddle
+import argparse
 import numpy as np
 from GPT2 import GPT2Model, GPT2Tokenizer
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--pretrained_model", type=str, required=True, help="the detection model dir.")
+args = parser.parse_args()
 
 # 初始化GPT-2模型
 model = GPT2Model(
@@ -16,7 +21,7 @@ model = GPT2Model(
 print('正在加载模型，耗时需要几分钟，请稍后...')
 
 # 读取CPM模型参数(FP16)
-state_dict = paddle.load('data/data62514/CPM-LM.pdparams')
+state_dict = paddle.load(args.pretrained_model)
 
 # FP16 -> FP32
 for param in state_dict:
@@ -54,7 +59,6 @@ def sample(text, max_len=10):
         if nid==3:
             break
         out.append(nid)
-    # print(out)
     print(tokenizer.decode(out))
 
 def ask_question(question, max_len=10):
