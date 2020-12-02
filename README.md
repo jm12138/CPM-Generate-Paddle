@@ -33,7 +33,7 @@ paddlepaddle>=2.0.0rc0
 
 * 运行测试Demo
 ```shell
-$ python AI_Bot.py --pretrained_model [path to the pretrained_model]
+$ python AI_Bot.py --pretrained_model [path to the pretrained model]
 ```
 
 ## 引用
