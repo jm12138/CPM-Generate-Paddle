@@ -47,7 +47,6 @@ print('模型加载完成.')
 
 # 基础预测函数
 def predict(text, max_len=10):
-    start = time.time()
     ids = tokenizer.encode(text)
     input_id = paddle.to_tensor(np.array(ids).reshape(1, -1).astype('int64'))
     output, cached_kvs = model(input_id, use_cache=True)
@@ -63,8 +62,6 @@ def predict(text, max_len=10):
         if nid==3:
             break
         out.append(nid)
-    end = time.time()
-    print('预测时间: %.2fs' % (end - start))
     print(tokenizer.decode(out))
 
 # 问答
