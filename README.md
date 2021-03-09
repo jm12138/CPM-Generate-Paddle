@@ -5,6 +5,9 @@
 
 原项目介绍文章：https://mp.weixin.qq.com/s/oI2Ak-M57MSuycLVpVEiHw
 
+## 更新
+基于 PaddleNLP 的新版本已更新[【项目链接】](https://aistudio.baidu.com/aistudio/projectdetail/1612806)
+
 ## 项目说明
 参考[CPM-Generate](https://github.com/TsinghuaAI/CPM-Generate)、[CPM-LM-TF2](https://github.com/qhduan/CPM-LM-TF2)、[gpt-2-Pytorch](https://github.com/graykode/gpt-2-Pytorch)等项目开发
 
